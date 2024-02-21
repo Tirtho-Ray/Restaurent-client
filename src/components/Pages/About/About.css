@@ -1,0 +1,20 @@
+/* About.css */
+
+.spin-image {
+    animation: spin 9s linear infinite;
+}
+.img{
+    border-radius: 10px 10px 0 0;
+}
+.text{
+    color: rgb(95, 95, 93);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
