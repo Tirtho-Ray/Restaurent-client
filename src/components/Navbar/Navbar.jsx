@@ -97,7 +97,7 @@ const Navbar = () => {
             </li>
             <li className='text-xl py-4 flex'>
               <TbTruckDelivery size={25} className='mr-4' />
-              <NavLink to="/order" onClick={closeNav}>
+              <NavLink to="/login" onClick={closeNav}>
                 Order
               </NavLink>
             </li>

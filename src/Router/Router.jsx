@@ -7,8 +7,9 @@ import AddProducts from "../components/Pages/Admin/AddProducts";
 import FoodsMenu from "../components/Pages/MenuItems/FoodsMenu";
 import Loader from "./Loader";
 import FoodDetails from "../components/Pages/MenuItems/FoodDetails";
-import UpdateProduct from "../components/Pages/Admin/UpdateProduct";
+// import UpdateProduct from "../components/Pages/Admin/UpdateProduct";
 import FoodCart from "../components/Pages/MenuItems/FoodCart";
+import Login from "../components/User/Login";
 
 const router = createBrowserRouter([
     {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
           element:<FoodCart></FoodCart>,
           loader:({params})=> fetch(`http://localhost:5000/food/${params.id}`)
         },
+        {
+          path:"/login",
+          element:<Login></Login>
+        }
         // {
         //   path:'update/:id',
         //   element:<UpdateProduct></UpdateProduct>,
