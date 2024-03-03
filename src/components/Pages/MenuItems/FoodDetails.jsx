@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import{ useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { MdOutlineFavoriteBorder } from 'react-icons/md';
 

@@ -7,9 +7,12 @@ import AddProducts from "../components/Pages/Admin/AddProducts";
 import FoodsMenu from "../components/Pages/MenuItems/FoodsMenu";
 import Loader from "./Loader";
 import FoodDetails from "../components/Pages/MenuItems/FoodDetails";
-// import UpdateProduct from "../components/Pages/Admin/UpdateProduct";
-import FoodCart from "../components/Pages/MenuItems/FoodCart";
 import Login from "../components/User/Login";
+import Register from "../components/User/Register";
+import Favorite from "../components/Pages/Favorite/Favorite";
+import Addcart from "../components/Pages/Addcart/Addcart";
+import BuyNow from "../components/Pages/BuyNow/BuyNow";
+import UpdateProduct from "../components/Pages/Admin/UpdateProduct";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +32,11 @@ const router = createBrowserRouter([
           path:"addProducts",
           element:<AddProducts></AddProducts>
         },
+        {
+          path:"updatesProducts",
+          element:<UpdateProduct />,
+          loader:()=> fetch('http://localhost:5000/foods')
+        },
         
         {
           path:"foodsMenu",
@@ -41,19 +49,31 @@ const router = createBrowserRouter([
           loader:({params})=> fetch(`http://localhost:5000/foods/${params.id}`)
         },
         {
-          path:"cart/:id",
-          element:<FoodCart></FoodCart>,
-          loader:({params})=> fetch(`http://localhost:5000/food/${params.id}`)
+          path:"cart",
+          element:<Addcart />,
+          // loader:({params})=> fetch(`http://localhost:5000/food/${params.id}`)
         },
+
         {
           path:"/login",
           element:<Login></Login>
-        }
-        // {
-        //   path:'update/:id',
-        //   element:<UpdateProduct></UpdateProduct>,
-        //   loader: ({params}) => fetch(`http://localhost:5000/foods/${params.id}`)
-        // }
+        },
+        {
+          path:"/sign-up",
+          element:<Register />
+        },
+        {
+          path:"/favorite",
+          element:<Favorite />,
+          // loader:()=>fetch('http://localhost:5000/favorites')
+        },
+        {
+          path:"buy/:id",
+          element:<BuyNow />,
+          loader:({params})=> fetch(`http://localhost:5000/foods/${params.id}`)
+        },
+        
+        
       ]
     },
   ]);

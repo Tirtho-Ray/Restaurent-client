@@ -1,17 +1,36 @@
-import  { useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import { AiOutlineMenu, AiOutlineShoppingCart, AiOutlineClose, AiFillTag } from 'react-icons/ai';
 import { BsFillSaveFill } from 'react-icons/bs';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { FaUserFriends, FaWallet,FaHome } from 'react-icons/fa';
 import { FcAbout } from "react-icons/fc";
 import { MdFavorite, MdHelp,MdAdminPanelSettings,MdOutlineFoodBank } from 'react-icons/md';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import User from '../User/User';
-import FoodCart from '../Pages/MenuItems/FoodCart';
+import { AuthContext } from '../Auth/AuthProvider';
+import Swal from 'sweetalert2';
+// import FoodCart from '../Pages/MenuItems/FoodCart';
 
 
 const Navbar = () => {
+
+  const{user,logOut}=useContext(AuthContext);
   const [nav, setNav] = useState(false);
+  const [cart, setCart]=useState([]);
+  // const {user}= useContext(AuthContext);
+  const navigate = useNavigate();
+  // console.log(user);
+  useEffect(() => {
+    // Fetch cart data from http://localhost:5000/cart
+    fetch('http://localhost:5000/cart')
+      .then(response => response.json())
+      .then(data => setCart(data))
+      .catch(error => console.error('Error fetching cart data:', error));
+  }, []);
+  // console.log(cart);
+  const cartItemCount = cart.length;
+  // const cart = 1;
+
 
   const toggleNav = () => {
     setNav(!nav);
@@ -20,9 +39,32 @@ const Navbar = () => {
   const closeNav = () => {
     setNav(false);
   };
+  const handelLogout = () => {
+    // Display SweetAlert confirmation
+    Swal.fire({
+      title: 'Logout',
+      text: 'Are you sure you want to logout?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, logout'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If user clicks "Yes, logout", perform the logout and navigate to home page
+        logOut()
+          .then(() => {
+            window.location.href = '/'; // Change '/home' to your home page URL
+          })
+          .catch((error) => {
+            console.error('Logout error:', error);
+          });
+      }
+    });
+  };
 
   return (
-    <div className='max-w-[1640px] mx-auto flex justify-between items-center py-4 px-2 md:px-4  '>
+    <div className='max-w-[1640px] mx-auto flex justify-between items-center py-6 px-3 md:px-  '>
       {/* Left side */}
       <div className='flex items-center'>
         <div onClick={toggleNav} className='cursor-pointer'>
@@ -42,18 +84,35 @@ const Navbar = () => {
       
       </div>
       {/* user and cart menu */}
-          <div className='flex items-center gap-12 mr-3'>
+          <div className='flex items-center gap-8 mr-3'>
             <div className='text-xl'>
-                <User />
+               
+                <div className="dropdown dropdown-left">
+                  <div tabIndex={0} role="button" className=""> <User /></div>
+                  <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><a>Item 1</a></li>
+                    <li><a>Item 2</a></li>
+                  </ul>
+                </div>
+               
             </div>
             {/* cart */}
             <Link to={`/cart`}>
-              <div className='flex items-center gap-1'>
+              <div className='flex items-center gap-1 mr-3'>
                   <div className='font-Rowdies'>
                       Cart
                   </div>
                   <div className='text-2xl'>
+                   
+                    <div className='relative'>
                       <AiOutlineShoppingCart />
+                    </div>
+                    <div className='absolute top-4 px-3 rounded-full'>
+                    <div className='text-[14px] bg-red-400 text-center rounded-full h- w-[32px] font-Bebas'>
+                  {cartItemCount}
+                </div>
+                      </div>
+
                   </div>
               </div>
             </Link>
@@ -101,15 +160,20 @@ const Navbar = () => {
                 Order
               </NavLink>
             </li>
+            {user && (
+              <li className='text-xl py-4 flex'>
+                <MdOutlineFoodBank size={25} className='mr-4' />
+                <NavLink to="/foodsMenu" onClick={closeNav}>
+                  FoodsMenu
+                </NavLink>
+              </li>
+            )}
+                  
             <li className='text-xl py-4 flex'>
-              <MdOutlineFoodBank size={25} className='mr-4' />
-              <NavLink to="/foodsMenu" onClick={closeNav}>
-               FoodsMenu
+              <MdFavorite size={25} className='mr-4' />
+              <NavLink to="/favorite" onClick={closeNav}>
+              Favorite
               </NavLink>
-            </li>
-           
-            <li className='text-xl py-4 flex'>
-              <MdFavorite size={25} className='mr-4' /> Favorites
             </li>
             <li className='text-xl py-4 flex'>
               <MdHelp size={25} className='mr-4' /> Help
@@ -118,13 +182,23 @@ const Navbar = () => {
               <AiFillTag size={25} className='mr-4' /> Promotions
             </li>
             <li className='text-xl py-4 flex'>
-              <BsFillSaveFill size={25} className='mr-4' /> Best Ones
+              <MdOutlineFoodBank size={25} className='mr-4' />
+              <NavLink to="/sign-up" onClick={closeNav}>
+              Sign Up
+              </NavLink>
             </li>
             <li className='text-xl py-4 flex'>
-              <FaUserFriends size={25} className='mr-4' /> Invite Friends
+              <MdOutlineFoodBank size={25} className='mr-4' />
+              {
+                user?<button className='text-xl  flex' onClick={handelLogout}>Logout</button>:
+                <NavLink to="/login" onClick={closeNav}>
+                Login
+                </NavLink>
+              }
             </li>
             {/* Admin panel DropDown */}
-            <div className="dropdown  dropdown-top">
+            {user&&(
+              <div className="dropdown  dropdown-top">
               <div tabIndex={0}  className=" text-xl m-1 flex cursor-pointer ">
                 <MdAdminPanelSettings size={25} className='mr-4' onClick={closeNav}/>
                 Admin Panel
@@ -139,6 +213,9 @@ const Navbar = () => {
                 <li><a>Item 2</a></li>
               </ul>
             </div>
+            )
+
+            }
             {/* End admin panel */}
           </ul>
         </nav>

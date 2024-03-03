@@ -8,6 +8,7 @@ const FoodsMenu = () => {
     const [allFoods, setAllFoods] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredFoods, setFilteredFoods] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Fetch data from the API or use your data loading mechanism
@@ -17,8 +18,10 @@ const FoodsMenu = () => {
                 const data = await response.json();
                 setAllFoods(data);
                 setFilteredFoods(data); // Initially, set filteredFoods to allFoods
+                setLoading(false); // Set loading to false when data is loaded
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setLoading(false); // Set loading to false in case of an error
             }
         };
 
@@ -42,7 +45,6 @@ const FoodsMenu = () => {
 
     return (
         <div>
-            {/* ... */}
             <div className='flex justify-around items-center mt-8'>
                 <div>
                     <h2 className='text-xl font-Bebas'>Food items: {searchTerm ? filteredFoods.length : allFoods.length}</h2>
@@ -58,30 +60,28 @@ const FoodsMenu = () => {
                         onChange={handleSearchChange}
                     />
                 </div>
-                {/* filter data here */}
                 <div>
-                    {/* <div className="dropdown dropdown-hover">
-                        <div tabIndex={0} role="button" className="text-3xl">
-                            <IoFilterOutline />
-                        </div>
-                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-28">
-                           <button>up</button>
-                            <button>Low</button>
-                        </ul>
-                    </div> */}
+                    {/* Add your filter dropdown here */}
                 </div>
             </div>
 
-            {/* load filtered data */}
-            <div className='flex justify-center'>
-                <div className='grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-4 gap-8'>
-                    {searchTerm ? (
-                        filteredFoods.map(food => <ShowFoodItems key={food._id} food={food}></ShowFoodItems>)
-                    ) : (
-                        allFoods.map(food => <ShowFoodItems key={food._id} food={food}></ShowFoodItems>)
-                    )}
+            {/* Conditional rendering for loader */}
+            {loading ? (
+                <div className='flex justify-center items-center mt-8'>
+                    {/* Add your spinner or loader component here */}
+                    <p>Loading...</p>
                 </div>
-            </div>
+            ) : (
+                <div className='flex justify-center'>
+                    <div className='grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-4 gap-8'>
+                        {searchTerm ? (
+                            filteredFoods.map(food => <ShowFoodItems key={food._id} food={food}></ShowFoodItems>)
+                        ) : (
+                            allFoods.map(food => <ShowFoodItems key={food._id} food={food}></ShowFoodItems>)
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

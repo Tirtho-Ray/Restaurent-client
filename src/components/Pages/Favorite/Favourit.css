@@ -1,0 +1,11 @@
+.favorite-box{
+    transition: all 1s ease-in-out;
+    border: 2px solid rgb(176, 144, 144);
+    border-radius: 7px;
+    
+    
+}
+.favorite-box:hover{
+    background-color: rgb(209, 209, 80);
+
+}

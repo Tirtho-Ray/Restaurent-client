@@ -12,17 +12,21 @@
   "dependencies": {
     "@gsap/react": "^2.1.0",
     "aos": "^2.3.4",
+    "firebase": "^10.8.0",
     "framer-motion": "^11.0.3",
     "gsap": "^3.12.5",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-google-recaptcha": "^3.1.0",
     "react-icons": "^5.0.1",
     "react-intersection-observer": "^9.8.0",
     "react-loading-skeleton": "^3.4.0",
     "react-router-dom": "^6.21.3",
+    "react-toastify": "^10.0.4",
     "sort-by": "^1.2.0",
+    "sweetalert": "^2.1.2",
     "sweetalert2": "^11.10.4"
   },
   "devDependencies": {

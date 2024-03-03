@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IoIosStar } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
+import { AuthContext } from "../../Auth/AuthProvider";
 
 const HomeContent = () => {
     const [foods, setFoods] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const{user}=useContext(AuthContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -92,9 +95,11 @@ const HomeContent = () => {
                     </div>
                     {/* button go to foodMenu */}
                     <div className="flex justify-end">
-                        <Link to="/foodsMenu">
-                            <button className="md:px-4 md:py-2 px-2 py-1 rounded-lg bg-yellow-300 font-Bebas">Show more</button>
-                        </Link>
+                    <Link to={user ? "/foodsMenu" : "sign-up"}>
+                    <button className="md:px-4 md:py-2 px-2 py-1 rounded-lg bg-yellow-300 font-Bebas ml-4">
+                        Show more
+                    </button>
+                </Link>
                     </div>
                 </>
             )}
