@@ -39,7 +39,7 @@ const Addcart = () => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const response = await axios.get(`https://restaurent-server-three.vercel.app/cart?userEmail=${user.email}`,{withCredentials:false});
+        const response = await axios.get(`https://restaurent-server-three.vercel.app/cart?userEmail=${user.email}`,{withCredentials:true});
         if (response.status === 200) {
           // Filter cart items based on user's email
           const filteredCart = response.data.filter(item => item.userEmail === user.email);

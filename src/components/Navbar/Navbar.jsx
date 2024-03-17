@@ -31,7 +31,7 @@ const Navbar = () => {
 const fetchCartData = () => {
   const url = `https://restaurent-server-three.vercel.app/cart?userEmail=${user.email}`;
   // console.log(url);
-  axios.get(url,{withCredentials:false})
+  axios.get(url,{withCredentials:true})
     .then(response => {
       setCart(response.data);
     })
