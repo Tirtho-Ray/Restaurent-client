@@ -14,7 +14,7 @@ const FoodsMenu = () => {
         // Fetch data from the API or use your data loading mechanism
         const fetchData = async () => {
             try {
-                const response = await fetch('https://restaurent-s.vercel.app/foods'); // Replace with your actual API endpoint
+                const response = await fetch('https://restaurent-server-three.vercel.app/foods'); // Replace with your actual API endpoint
                 const data = await response.json();
                 setAllFoods(data);
                 setFilteredFoods(data); // Initially, set filteredFoods to allFoods
