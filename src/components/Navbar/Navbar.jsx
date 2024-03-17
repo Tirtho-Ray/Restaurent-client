@@ -29,7 +29,7 @@ const Navbar = () => {
 // fetch data email wise from database
 
 const fetchCartData = () => {
-  const url = `https://restaurent-s.vercel.app/cart?userEmail=${user.email}`;
+  const url = `https://restaurent-server-three.vercel.app/cart?userEmail=${user.email}`;
   // console.log(url);
   axios.get(url,{withCredentials:true})
     .then(response => {

@@ -57,14 +57,14 @@ const router = createBrowserRouter([
           element:<PrivateRoute>
               <FoodDetails></FoodDetails>
           </PrivateRoute>,
-          loader:({params})=> fetch(`https://restaurent-s.vercel.app/foods/${params.id}`)
+          loader:({params})=> fetch(`https://restaurent-server-three.vercel.app/foods/${params.id}`)
         },
         {
           path:"cart",
           element:<PrivateRoute>
               <Addcart />
           </PrivateRoute>,
-          // loader:({params})=> fetch(`https://restaurent-s.vercel.app/food/${params.id}`)
+          // loader:({params})=> fetch(`https://restaurent-server-three.vercel.app/food/${params.id}`)
         },
 
         {
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
           element:<PrivateRoute>
             <BuyNow />
           </PrivateRoute>,
-          loader:({params})=> fetch(`https://restaurent-s.vercel.app/foods/${params.id}`)
+          loader:({params})=> fetch(`https://restaurent-server-three.vercel.app/foods/${params.id}`)
         },
         
         
