@@ -20,7 +20,7 @@ const FavoriteShow = () => {
   useEffect(() => {
     const fetchFavoriteItems = async () => {
       try {
-        const response = await fetch(`https://restaurent-server-three.vercel.app/favorites?userEmail=${user.email}`, { withCredentials: true });
+        const response = await fetch(`https://restaurent-server-three.vercel.app/favorites?userEmail=${user.email}`, { withCredentials: false });
         if (response.ok) {
           const data = await response.json();
           setFavoriteItems(data);
