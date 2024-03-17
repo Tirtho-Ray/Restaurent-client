@@ -69,7 +69,9 @@ const FoodsMenu = () => {
             {loading ? (
                 <div className='flex justify-center items-center mt-8'>
                     {/* Add your spinner or loader component here */}
-                    <p>Loading...</p>
+                    <div className="flex items-center justify-center h-screen">
+                        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-500 mt-28 mb-40"></div>
+                    </div>
                 </div>
             ) : (
                 <div className='flex justify-center'>

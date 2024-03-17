@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Auth/AuthProvider';
 import { RxCrossCircled } from 'react-icons/rx';
+import axios from 'axios';
 
 const Loader = () => (
   <div className="flex items-center justify-center h-screen">
@@ -12,6 +13,7 @@ const Loader = () => (
 
 const Addcart = () => {
   const { user } = useContext(AuthContext);
+  // console.log(user.email);
   const navigate = useNavigate();
 
   const [cart, setCart] = useState([]);
@@ -37,10 +39,11 @@ const Addcart = () => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const response = await fetch('http://localhost:5000/cart');
-        if (response.ok) {
-          const data = await response.json();
-          setCart(data);
+        const response = await axios.get(`http://localhost:5000/cart?userEmail=${user.email}`,{withCredentials:true});
+        if (response.status === 200) {
+          // Filter cart items based on user's email
+          const filteredCart = response.data.filter(item => item.userEmail === user.email);
+          setCart(filteredCart);
         } else {
           console.error('Failed to fetch cart items');
         }
@@ -52,7 +55,7 @@ const Addcart = () => {
     };
 
     fetchCart();
-  }, []);
+  }, [user]);
 
   const handleDelete = async (itemId) => {
     try {
@@ -129,7 +132,7 @@ const Addcart = () => {
   }
 
   return (
-    <div className="md:px-4">
+    <div className="md:px-4 ">
       <div>
         <div className="py-6 md:py-8 bg-red-400">
           <h1 className="text-center text-xl md:text-3xl lg:text-5xl md:mt-4 font-BBlack text-white">
@@ -141,9 +144,9 @@ const Addcart = () => {
       <div className="grid md:grid-cols-2 px-2">
         {cart.length === 0 ? (
           <div className="text-center mt-8">
-            <p>No items in your cart.</p>
+            <p className='md:text-3xl text-center font-bold mt-20'>No items in your cart.</p>
             <Link to="/foodsMenu">
-              <button className="py-2 px-4 mt-4 bg-blue-500 text-white rounded-lg">
+              <button className="py-2 px-4 mt-4 bg-blue-500 text-white rounded-lg md:mt-20 mb-20">
                 Continue Shopping
               </button>
             </Link>

@@ -1,0 +1,16 @@
+/* HomeDeliveryProcess.css */
+.home-delivery-container {
+    /* Add any styles you need for the container */
+}
+
+.delivery-item {
+    opacity: 0; /* Initially hide the items */
+    transition: opacity 0.5s ease-in-out; /* Add transition effect */
+}
+
+/* Define the fade-up animation */
+.fade-up {
+    opacity: 1;
+}
+
+/* Adjust styles as needed */

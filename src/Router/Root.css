@@ -1,0 +1,23 @@
+/* Root.css */
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Initial state: Transparent background */
+.sticky .navbar {
+    background-color: transparent;
+    filter: blur(50px); /* Adjust blur amount as needed */
+   
+}
+
+/* Scrolled state: Add background color */
+.sticky.scrolled .navbar {
+    background-color: rgba(0, 0, 0, 0.8); /* Adjust the transparency as needed */
+}
+
+/* Additional styling for navbar */
+.navbar {
+    /* Your navbar styles */
+}

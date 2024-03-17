@@ -23,7 +23,7 @@ const ShowFoodItems = ({ food ,onDelete}) => {
   } = food;
 
   const { user } = useContext(AuthContext);
-    const isAdmin = user.email === "admin@gmail.com";
+  const isAdmin = user && user.email === "admin@gmail.com";
     // const isAdmin = user.email === "admin@gmail.com";
 
 
@@ -37,6 +37,7 @@ const ShowFoodItems = ({ food ,onDelete}) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          userEmail: user.email,
           foodPictures: Picture,
           foodName: Name,
           foodRating: Rating,
@@ -44,10 +45,10 @@ const ShowFoodItems = ({ food ,onDelete}) => {
           foodMade: Made,
         }),
       });
-
+  
       if (response.ok) {
         setIsFavorite(true);
-        sweetalert(<span className='text-3xl'>Added to Favorites!</span>, { icon: 'success' });
+        sweetalert('Added to Favorites!', { icon: 'success' }); // Pass a string message here
       } else {
         console.error('Failed to add item to favorites');
       }
@@ -56,6 +57,7 @@ const ShowFoodItems = ({ food ,onDelete}) => {
     }
   };
 
+// add to cart value
   const addCart = async () => {
     try {
       const response = await fetch(`http://localhost:5000/cart`, {

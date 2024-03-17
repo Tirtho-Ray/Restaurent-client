@@ -24,16 +24,25 @@ const login = (email, password) => {
 
     return signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            const user = userCredential.user;
-            console.log("Successfully signed in as:", user.displayName);
-            setLoading(false);
-            // Additional logic, if needed
+            const user = userCredential && userCredential.user;
+            if (user) {
+                console.log("Successfully signed in as:", user.displayName);
+                setLoading(false);
+                return user; // Return user object
+            } else {
+                setLoading(false);
+                console.error("Error signing in: User information not available");
+                throw new Error("User information not available");
+            }
         })
         .catch((error) => {
             setLoading(false);
             console.error("Error signing in:", error.code, error.message);
+            throw error; // Rethrow the error for further handling
         });
 };
+
+
 
 
 
@@ -69,10 +78,12 @@ const login = (email, password) => {
 
     const authInfo ={
         user,
+        loading,
         createUser,
         login,
         logOut,
-        googleSignIn
+        googleSignIn,
+        
 
     }
 

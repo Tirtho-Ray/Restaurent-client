@@ -1,5 +1,3 @@
-// Register.jsx
-
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import img from '../../assets/bg2.jpg';
@@ -43,61 +41,35 @@ const Register = () => {
         setError('');
 
         createUser(email, password)
-            .then(result =>{
-                
-                console.log(result);
-                e.target.reset()
-                setSuccessMessage('User created successfully.'); 
-                navigate('/') 
-            })
-            .catch(err=>{
-                console.log(err);
-            })
-        // send user data to server
-        try {
-            const serverURL = 'http://localhost:5000';
-            const response = await fetch(`${serverURL}/users`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(user),
-            });
-
-            if (response.ok) {
-                const result = await response.json();
+            .then(result => {
                 console.log(result);
                 e.target.reset();
                 setSuccessMessage('User created successfully.');
-                setError('');
-                navigate('/');
-            } else {
-                const errorData = await response.json();
-                setError(errorData.message || 'Registration failed');
-                setSuccessMessage('');
-            }
-        } catch (error) {
-            console.error('Error during registration:', error);
-            setError('Internal Server Error');
-            setSuccessMessage('');
-        }
+                navigate('/'); // Navigate to the desired location upon successful registration
+            })
+            .catch(err => {
+                if (err.code === 'auth/email-already-in-use') {
+                    setError('Email is already in use. Please use another email or login with the existing one.');
+                } else {
+                    console.error(err);
+                    setError('Registration failed. Please try again later.');
+                }
+                setSuccessMessage(''); // Ensure success message is cleared if there's an error
+            });
     };
 
-    
-
-
-
-    const handelGoogleLogin=()=>{
+    const handelGoogleLogin = () => {
         googleSignIn()
-        .then(result =>{
-            result.success
-            setSuccessMessage('User created successfully.');
-            navigate('/') 
-        })
-        .catch(err=>{
-                console.log(err);
-        })
-    }
+            .then(result => {
+                setSuccessMessage('User created successfully.');
+                navigate('/');
+            })
+            .catch(err => {
+                console.error(err);
+                setError('Google sign-in failed. Please try again later.');
+                setSuccessMessage('');
+            });
+    };
 
     return (
         <div className='relative min-h-screen flex items-center justify-center' style={{ backgroundImage: `url(${img})`, backgroundSize: 'cover' }}>
@@ -146,7 +118,7 @@ const Register = () => {
                                 {showConfirmPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
                             </span>
                         </div>
-                        
+
                         <div className='mt-4'>
                             <button className='w-full py-2 bg-yellow-400 rounded-md font-Rowdies text-white'>
                                 Sign up

@@ -13,6 +13,7 @@ import Favorite from "../components/Pages/Favorite/Favorite";
 import Addcart from "../components/Pages/Addcart/Addcart";
 import BuyNow from "../components/Pages/BuyNow/BuyNow";
 import UpdateProduct from "../components/Pages/Admin/UpdateProduct";
+import PrivateRoute from "../components/Private/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -26,50 +27,70 @@ const router = createBrowserRouter([
         },
         {
             path:"about",
-            element:<About></About>
+            element:<PrivateRoute>
+              <About></About>
+            </PrivateRoute>
         },
         {
           path:"addProducts",
-          element:<AddProducts></AddProducts>
+          element:<PrivateRoute>
+            <AddProducts></AddProducts>
+          </PrivateRoute>
         },
         {
           path:"updatesProducts",
-          element:<UpdateProduct />,
+          element:<PrivateRoute>
+            <UpdateProduct />
+          </PrivateRoute>,
           loader:()=> fetch('http://localhost:5000/foods')
         },
         
         {
           path:"foodsMenu",
-          element:<FoodsMenu></FoodsMenu>,
+          element:
+              <FoodsMenu></FoodsMenu>
+           ,
           // loader:()=> fetch('http://localhost:5000/foods')
         },
         {
           path:"details/:id",
-          element:<FoodDetails></FoodDetails>,
+          element:<PrivateRoute>
+              <FoodDetails></FoodDetails>
+          </PrivateRoute>,
           loader:({params})=> fetch(`http://localhost:5000/foods/${params.id}`)
         },
         {
           path:"cart",
-          element:<Addcart />,
+          element:<PrivateRoute>
+              <Addcart />
+          </PrivateRoute>,
           // loader:({params})=> fetch(`http://localhost:5000/food/${params.id}`)
         },
 
         {
           path:"/login",
-          element:<Login></Login>
+          element:<>
+            <Login />
+            </>
         },
         {
           path:"/sign-up",
-          element:<Register />
+          element:<>
+            <Register />
+          </>
         },
         {
           path:"/favorite",
-          element:<Favorite />,
+          element:<PrivateRoute>
+            <Favorite />
+          </PrivateRoute>,
           // loader:()=>fetch('http://localhost:5000/favorites')
         },
         {
           path:"buy/:id",
-          element:<BuyNow />,
+          element:<PrivateRoute>
+            <BuyNow />
+          </PrivateRoute>,
           loader:({params})=> fetch(`http://localhost:5000/foods/${params.id}`)
         },
         
