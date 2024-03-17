@@ -31,7 +31,7 @@ const UpdateProduct = () => {
         console.log(allFoods);
         event.target.reset();
 
-        fetch(`http://localhost:5000/AllProductAdd/${_id}`,{
+        fetch(`https://restaurent-s.vercel.app/AllProductAdd/${_id}`,{
             method: 'PUT',
             headers:{
                 'content-type': 'application/json'

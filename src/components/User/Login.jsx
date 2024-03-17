@@ -35,7 +35,7 @@ const Login = () => {
             const user = { email };
 
             // Send user data to the server
-            const response = await axios.post('http://localhost:5000/jwt', user,{withCredentials: true});
+            const response = await axios.post('https://restaurent-s.vercel.app/jwt', user,{withCredentials: true});
             if(response.data.success){
                 navigate(location?.state?location?.state: '/');
             }

@@ -42,7 +42,7 @@ const router = createBrowserRouter([
           element:<PrivateRoute>
             <UpdateProduct />
           </PrivateRoute>,
-          loader:()=> fetch('http://localhost:5000/foods')
+          loader:()=> fetch('https://restaurent-s.vercel.app/foods')
         },
         
         {
@@ -50,21 +50,21 @@ const router = createBrowserRouter([
           element:
               <FoodsMenu></FoodsMenu>
            ,
-          // loader:()=> fetch('http://localhost:5000/foods')
+          // loader:()=> fetch('https://restaurent-s.vercel.app/foods')
         },
         {
           path:"details/:id",
           element:<PrivateRoute>
               <FoodDetails></FoodDetails>
           </PrivateRoute>,
-          loader:({params})=> fetch(`http://localhost:5000/foods/${params.id}`)
+          loader:({params})=> fetch(`https://restaurent-s.vercel.app/foods/${params.id}`)
         },
         {
           path:"cart",
           element:<PrivateRoute>
               <Addcart />
           </PrivateRoute>,
-          // loader:({params})=> fetch(`http://localhost:5000/food/${params.id}`)
+          // loader:({params})=> fetch(`https://restaurent-s.vercel.app/food/${params.id}`)
         },
 
         {
@@ -84,14 +84,14 @@ const router = createBrowserRouter([
           element:<PrivateRoute>
             <Favorite />
           </PrivateRoute>,
-          // loader:()=>fetch('http://localhost:5000/favorites')
+          // loader:()=>fetch('https://restaurent-s.vercel.app/favorites')
         },
         {
           path:"buy/:id",
           element:<PrivateRoute>
             <BuyNow />
           </PrivateRoute>,
-          loader:({params})=> fetch(`http://localhost:5000/foods/${params.id}`)
+          loader:({params})=> fetch(`https://restaurent-s.vercel.app/foods/${params.id}`)
         },
         
         

@@ -31,7 +31,7 @@ const ShowFoodItems = ({ food ,onDelete}) => {
 
   const addToFavorites = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/favorites`, {
+      const response = await fetch(`https://restaurent-s.vercel.app/favorites`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const ShowFoodItems = ({ food ,onDelete}) => {
 // add to cart value
   const addCart = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/cart`, {
+      const response = await fetch(`https://restaurent-s.vercel.app/cart`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ const ShowFoodItems = ({ food ,onDelete}) => {
 
   const deleteFoodItem = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/foods/${_id}`, {
+      const response = await fetch(`https://restaurent-s.vercel.app/foods/${_id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

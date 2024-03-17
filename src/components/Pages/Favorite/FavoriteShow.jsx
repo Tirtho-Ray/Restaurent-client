@@ -20,7 +20,7 @@ const FavoriteShow = () => {
   useEffect(() => {
     const fetchFavoriteItems = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/favorites?userEmail=${user.email}`, { withCredentials: true });
+        const response = await fetch(`https://restaurent-s.vercel.app/favorites?userEmail=${user.email}`, { withCredentials: true });
         if (response.ok) {
           const data = await response.json();
           setFavoriteItems(data);
@@ -51,7 +51,7 @@ const FavoriteShow = () => {
 
       if (result.isConfirmed) {
         // Delete on the server
-        const response = await fetch(`http://localhost:5000/favorites/${itemId}`, {
+        const response = await fetch(`https://restaurent-s.vercel.app/favorites/${itemId}`, {
           method: 'DELETE',
         });
 

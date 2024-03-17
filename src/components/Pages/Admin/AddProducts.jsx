@@ -24,7 +24,7 @@ const AddProduct = () => {
         console.log(allFoods);
         event.target.reset();
 
-        fetch('http://localhost:5000/foods', {
+        fetch('https://restaurent-s.vercel.app/foods', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'
