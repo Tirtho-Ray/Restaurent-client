@@ -42,7 +42,7 @@ const router = createBrowserRouter([
           element:<PrivateRoute>
             <UpdateProduct />
           </PrivateRoute>,
-          loader:()=> fetch('https://restaurent-s.vercel.app/foods')
+          loader:()=> fetch('https://restaurent-server-three.vercel.app/foods')
         },
         
         {
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
           element:
               <FoodsMenu></FoodsMenu>
            ,
-          // loader:()=> fetch('https://restaurent-s.vercel.app/foods')
+          // loader:()=> fetch('https://restaurent-server-three.vercel.app/foods')
         },
         {
           path:"details/:id",
@@ -84,7 +84,7 @@ const router = createBrowserRouter([
           element:<PrivateRoute>
             <Favorite />
           </PrivateRoute>,
-          // loader:()=>fetch('https://restaurent-s.vercel.app/favorites')
+          // loader:()=>fetch('https://restaurent-server-three.vercel.app/favorites')
         },
         {
           path:"buy/:id",
